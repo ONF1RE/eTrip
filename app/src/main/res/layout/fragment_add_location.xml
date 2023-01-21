@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.AddLocationFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10mdp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_10mdp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="Latitude    :"
+                    android:textSize="18sp"/>
+
+                <TextView
+                    android:id="@+id/latitude2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="5dp"
+                    android:text=""
+                    android:textSize="18sp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_10mdp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="Longitude :"
+                    android:textSize="18sp"/>
+
+                <TextView
+                    android:id="@+id/longitude2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
+                    android:text=""
+                    android:textSize="18sp"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Destination (District/State)"
+                android:textSize="@dimen/_12font_mdp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="@dimen/_10mdp"/>
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/destination"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35mdp"
+                android:layout_margin="@dimen/_10mdp"
+                android:hint="Kuala Lumpur"
+                android:textSize="@dimen/_12font_mdp"
+                android:paddingStart="@dimen/_5mdp"
+                android:background="@drawable/search_background"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Date "
+                android:textSize="@dimen/_12font_mdp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="@dimen/_10mdp"/>
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/date"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35mdp"
+                android:layout_margin="@dimen/_10mdp"
+                android:hint="DDMMYYYY"
+                android:textSize="@dimen/_12font_mdp"
+                android:paddingStart="@dimen/_5mdp"
+                android:background="@drawable/search_background"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Time"
+                android:textSize="@dimen/_12font_mdp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="@dimen/_10mdp"/>
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/time"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35mdp"
+                android:layout_margin="@dimen/_10mdp"
+                android:textSize="@dimen/_12font_mdp"
+                android:paddingStart="@dimen/_5mdp"
+                android:background="@drawable/search_background"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Car Type"
+                android:textSize="@dimen/_12font_mdp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="@dimen/_10mdp"/>
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/carType"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35mdp"
+                android:layout_margin="@dimen/_10mdp"
+                android:hint="Toyota Camry"
+                android:paddingStart="@dimen/_5mdp"
+                android:textSize="@dimen/_12font_mdp"
+                android:background="@drawable/search_background"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Available Seat(s)"
+                android:textSize="@dimen/_12font_mdp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="@dimen/_10mdp"/>
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/seat"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35mdp"
+                android:layout_margin="@dimen/_10mdp"
+                android:textSize="@dimen/_12font_mdp"
+                android:paddingStart="@dimen/_5mdp"
+                android:background="@drawable/search_background"/>
+
+            <Button
+                android:id="@+id/submit"
+                android:layout_margin="@dimen/_10mdp"
+                android:backgroundTint="@android:color/system_accent1_600"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Submit"
+                tools:targetApi="s" />
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

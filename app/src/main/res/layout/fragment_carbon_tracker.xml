@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.1"
+                android:text="Carpool Activity"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/carpoolList"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.9"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.1"
+                android:text="Driver Activity"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/driverList"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.9"
+                android:layout_below="@+id/driverList"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

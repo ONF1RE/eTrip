@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "908365015837",
+    "firebase_url": "https://etrip-4fb8e-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "etrip-4fb8e",
+    "storage_bucket": "etrip-4fb8e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:908365015837:android:f86a0c20af81487495cff4",
+        "android_client_info": {
+          "package_name": "com.radiant.etrip"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "908365015837-r91l485earsspkjrcdgesnnak45jferl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.radiant.etrip",
+            "certificate_hash": "6cdde90af4e7c9fba29bccca9c6ffb36d554599f"
+          }
+        },
+        {
+          "client_id": "908365015837-huaslerhmri1dh37bdhrfd93ruro9ls5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBE944frfPJ65WKDi3-t7CA12JoJrB6JZE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "908365015837-huaslerhmri1dh37bdhrfd93ruro9ls5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
