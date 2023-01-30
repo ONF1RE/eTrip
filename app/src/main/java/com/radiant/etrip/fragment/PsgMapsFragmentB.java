@@ -59,6 +59,7 @@ public class PsgMapsFragmentB extends Fragment implements OnMapReadyCallback {
     private FusedLocationProviderClient fusedLocationProviderClient;
     private Marker marker;
     private MarkerOptions markerOptions;
+    String location;
 
     public PsgMapsFragmentB() {
     }
@@ -96,6 +97,7 @@ public class PsgMapsFragmentB extends Fragment implements OnMapReadyCallback {
                 intent.putExtra("longitude_start", lngValueStart);
                 intent.putExtra("latitude_end", latValueEnd);
                 intent.putExtra("longitude_end", longValueEnd);
+                intent.putExtra("name_dest", location);
                 startActivity(intent);
             }
         });
@@ -138,7 +140,7 @@ public class PsgMapsFragmentB extends Fragment implements OnMapReadyCallback {
         }
         if (list.size() > 0){
             Address address = list.get(0);
-            String location = address.getAdminArea();
+            location = address.getAdminArea();
             double latitude = address.getLatitude();
             double longitude = address.getLongitude();
             goToLatLng(latitude, longitude);

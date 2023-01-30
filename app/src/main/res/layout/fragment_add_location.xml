@@ -18,7 +18,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_10mdp"
+                android:layout_marginLeft="@dimen/_10mdp"
+                android:layout_marginRight="@dimen/_10mdp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -41,7 +42,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_10mdp"
+                android:layout_marginLeft="@dimen/_10mdp"
+                android:layout_marginRight="@dimen/_10mdp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -66,14 +68,16 @@
                 android:layout_height="wrap_content"
                 android:text="Destination (District/State)"
                 android:textSize="@dimen/_12font_mdp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginStart="@dimen/_10mdp"/>
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/destination"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_35mdp"
-                android:layout_margin="@dimen/_10mdp"
+                android:layout_marginLeft="@dimen/_10mdp"
+                android:layout_marginRight="@dimen/_10mdp"
+                android:layout_marginTop="@dimen/_4mdp"
                 android:hint="Kuala Lumpur"
                 android:textSize="@dimen/_12font_mdp"
                 android:paddingStart="@dimen/_5mdp"
@@ -91,7 +95,9 @@
                 android:id="@+id/date"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_35mdp"
-                android:layout_margin="@dimen/_10mdp"
+                android:layout_marginLeft="@dimen/_10mdp"
+                android:layout_marginRight="@dimen/_10mdp"
+                android:layout_marginTop="@dimen/_4mdp"
                 android:hint="DDMMYYYY"
                 android:textSize="@dimen/_12font_mdp"
                 android:paddingStart="@dimen/_5mdp"
@@ -109,7 +115,10 @@
                 android:id="@+id/time"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_35mdp"
-                android:layout_margin="@dimen/_10mdp"
+                android:hint="1159am"
+                android:layout_marginLeft="@dimen/_10mdp"
+                android:layout_marginRight="@dimen/_10mdp"
+                android:layout_marginTop="@dimen/_4mdp"
                 android:textSize="@dimen/_12font_mdp"
                 android:paddingStart="@dimen/_5mdp"
                 android:background="@drawable/search_background"/>
@@ -126,8 +135,30 @@
                 android:id="@+id/carType"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_35mdp"
-                android:layout_margin="@dimen/_10mdp"
+                android:layout_marginLeft="@dimen/_10mdp"
+                android:layout_marginRight="@dimen/_10mdp"
+                android:layout_marginTop="@dimen/_4mdp"
                 android:hint="Toyota Camry"
+                android:paddingStart="@dimen/_5mdp"
+                android:textSize="@dimen/_12font_mdp"
+                android:background="@drawable/search_background"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Car Plate No."
+                android:textSize="@dimen/_12font_mdp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="@dimen/_10mdp"/>
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/carPlate"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35mdp"
+                android:layout_marginLeft="@dimen/_10mdp"
+                android:layout_marginRight="@dimen/_10mdp"
+                android:layout_marginTop="@dimen/_4mdp"
+                android:hint="WWW 8888"
                 android:paddingStart="@dimen/_5mdp"
                 android:textSize="@dimen/_12font_mdp"
                 android:background="@drawable/search_background"/>
@@ -144,7 +175,9 @@
                 android:id="@+id/seat"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_35mdp"
-                android:layout_margin="@dimen/_10mdp"
+                android:layout_marginLeft="@dimen/_10mdp"
+                android:layout_marginRight="@dimen/_10mdp"
+                android:layout_marginTop="@dimen/_4mdp"
                 android:textSize="@dimen/_12font_mdp"
                 android:paddingStart="@dimen/_5mdp"
                 android:background="@drawable/search_background"/>

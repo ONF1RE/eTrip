@@ -15,31 +15,28 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.radiant.etrip.AdapterCarbonCarpooler;
-import com.radiant.etrip.AdapterCarbonDriver;
 import com.radiant.etrip.AdapterRecentCarpooler;
 import com.radiant.etrip.AdapterRecentDriver;
 import com.radiant.etrip.HelperCarpooler;
 import com.radiant.etrip.HelperDriver;
 import com.radiant.etrip.LoginActivity;
-import com.radiant.etrip.databinding.FragmentCarbonTrackerDetailsBinding;
 import com.radiant.etrip.databinding.FragmentRecentRidesBinding;
 
 import java.util.ArrayList;
 
-public class CarbonTrackerDetailsFragment extends Fragment {
+public class RecentRidesFragment extends Fragment {
 
     RecyclerView recyclerViewCarpooler, recyclerViewDriver;
     DatabaseReference referenceCarpooler, referenceDriver;
-    AdapterCarbonCarpooler adapterCarbonCarpooler;
+    AdapterRecentCarpooler adapterRecentCarpooler;
     ArrayList<HelperCarpooler> listCarpooler;
-    AdapterCarbonDriver adapterCarbonDriver;
+    AdapterRecentDriver adapterRecentDriver;
     ArrayList<HelperDriver> listDriver;
     String username;
 
-    FragmentCarbonTrackerDetailsBinding binding;
+    FragmentRecentRidesBinding binding;
 
-    public CarbonTrackerDetailsFragment() {
+    public RecentRidesFragment() {
         // Required empty public constructor
     }
 
@@ -55,7 +52,7 @@ public class CarbonTrackerDetailsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = FragmentCarbonTrackerDetailsBinding.inflate(inflater, container, false);
+        binding = FragmentRecentRidesBinding.inflate(inflater, container, false);
         CarpoolerActivity();
         DriverActivity();
         return binding.getRoot();
@@ -68,8 +65,8 @@ public class CarbonTrackerDetailsFragment extends Fragment {
         recyclerViewCarpooler.setLayoutManager(new LinearLayoutManager(getContext()));
 
         listCarpooler = new ArrayList<>();
-        adapterCarbonCarpooler = new AdapterCarbonCarpooler(getContext(), listCarpooler);
-        recyclerViewCarpooler.setAdapter(adapterCarbonCarpooler);
+        adapterRecentCarpooler = new AdapterRecentCarpooler(getContext(), listCarpooler);
+        recyclerViewCarpooler.setAdapter(adapterRecentCarpooler);
 
         referenceCarpooler.addValueEventListener(new ValueEventListener() {
             @Override
@@ -78,7 +75,7 @@ public class CarbonTrackerDetailsFragment extends Fragment {
                     HelperCarpooler helperCarpooler = dataSnapshot.getValue(HelperCarpooler.class);
                     listCarpooler.add(helperCarpooler);
                 }
-                adapterCarbonCarpooler.notifyDataSetChanged();
+                adapterRecentCarpooler.notifyDataSetChanged();
             }
 
             @Override
@@ -95,8 +92,8 @@ public class CarbonTrackerDetailsFragment extends Fragment {
         recyclerViewDriver.setLayoutManager(new LinearLayoutManager(getContext()));
 
         listDriver = new ArrayList<>();
-        adapterCarbonDriver = new AdapterCarbonDriver(getContext(), listDriver);
-        recyclerViewDriver.setAdapter(adapterCarbonDriver);
+        adapterRecentDriver = new AdapterRecentDriver(getContext(), listDriver);
+        recyclerViewDriver.setAdapter(adapterRecentDriver);
 
         referenceDriver.addValueEventListener(new ValueEventListener() {
             @Override
@@ -105,7 +102,7 @@ public class CarbonTrackerDetailsFragment extends Fragment {
                     HelperDriver helperDriver = dataSnapshot.getValue(HelperDriver.class);
                     listDriver.add(helperDriver);
                 }
-                adapterCarbonDriver.notifyDataSetChanged();
+                adapterRecentDriver.notifyDataSetChanged();
             }
 
             @Override

@@ -32,9 +32,9 @@
                 android:layout_marginStart="@dimen/_10mdp"
                 android:layout_marginTop="@dimen/_10mdp"
                 android:layout_marginEnd="@dimen/_10mdp"
-                android:layout_marginBottom="@dimen/_10mdp"
-                android:src="@drawable/profile_24"
-                app:civ_border_color="#FF000000"
+                android:layout_marginBottom="@dimen/_5mdp"
+                android:src="@drawable/passenger_24"
+                app:civ_border_color="#FFFFFF"
                 app:civ_border_width="2dp" />
 
             <TextView
@@ -42,12 +42,12 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/icon1"
                 android:layout_marginStart="@dimen/_5mdp"
-                android:layout_marginTop="0dp"
                 android:layout_marginEnd="@dimen/_5mdp"
-                android:layout_marginBottom="@dimen/_5mdp"
+                android:layout_marginBottom="@dimen/_10mdp"
                 android:gravity="center"
-                android:text="Be A Carpooler"
-                android:textSize="@dimen/_13font_mdp" />
+                android:text="Be A Passenger"
+                android:textStyle="bold"
+                android:textSize="@dimen/_15font_mdp" />
 
         </RelativeLayout>
 
@@ -76,9 +76,9 @@
                 android:layout_marginStart="@dimen/_10mdp"
                 android:layout_marginTop="@dimen/_10mdp"
                 android:layout_marginEnd="@dimen/_10mdp"
-                android:layout_marginBottom="@dimen/_10mdp"
-                android:src="@drawable/profile_24"
-                app:civ_border_color="#FF000000"
+                android:layout_marginBottom="@dimen/_5mdp"
+                android:src="@drawable/driver_24"
+                app:civ_border_color="#FFFFFF"
                 app:civ_border_width="2dp" />
 
             <TextView
@@ -86,12 +86,12 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/icon2"
                 android:layout_marginStart="@dimen/_5mdp"
-                android:layout_marginTop="0dp"
                 android:layout_marginEnd="@dimen/_5mdp"
-                android:layout_marginBottom="@dimen/_5mdp"
+                android:layout_marginBottom="@dimen/_10mdp"
                 android:gravity="center"
                 android:text="Be A Driver"
-                android:textSize="@dimen/_13font_mdp" />
+                android:textStyle="bold"
+                android:textSize="@dimen/_15font_mdp" />
 
         </RelativeLayout>
 
@@ -120,9 +120,9 @@
                 android:layout_marginStart="@dimen/_10mdp"
                 android:layout_marginTop="@dimen/_10mdp"
                 android:layout_marginEnd="@dimen/_10mdp"
-                android:layout_marginBottom="@dimen/_10mdp"
-                android:src="@drawable/profile_24"
-                app:civ_border_color="#FF000000"
+                android:layout_marginBottom="@dimen/_5mdp"
+                android:src="@drawable/recent_24"
+                app:civ_border_color="#FFFFFF"
                 app:civ_border_width="2dp" />
 
             <TextView
@@ -130,15 +130,15 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/icon3"
                 android:layout_marginStart="@dimen/_5mdp"
-                android:layout_marginTop="0dp"
                 android:layout_marginEnd="@dimen/_5mdp"
-                android:layout_marginBottom="@dimen/_5mdp"
+                android:layout_marginBottom="@dimen/_10mdp"
                 android:gravity="center"
                 android:text="Recent Activity"
-                android:textSize="@dimen/_13font_mdp" />
+                android:textStyle="bold"
+                android:textSize="@dimen/_15font_mdp" />
 
         </RelativeLayout>
-
+        
     </com.google.android.material.card.MaterialCardView>
 
 </LinearLayout>

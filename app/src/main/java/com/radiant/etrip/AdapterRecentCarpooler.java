@@ -12,12 +12,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
+public class AdapterRecentCarpooler extends RecyclerView.Adapter<AdapterRecentCarpooler.MyViewHolder> {
 
     Context context;
     ArrayList<HelperCarpooler> list;
 
-    public MyAdapter(Context context, ArrayList<HelperCarpooler> list) {
+    public AdapterRecentCarpooler(Context context, ArrayList<HelperCarpooler> list) {
         this.context = context;
         this.list = list;
     }
@@ -25,7 +25,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(context).inflate(R.layout.item, parent, false);
+        View v = LayoutInflater.from(context).inflate(R.layout.item_recent_carpooler, parent, false);
         return new MyViewHolder(v);
     }
 
@@ -35,8 +35,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         HelperCarpooler helperCarpooler = list.get(position);
         holder.origin.setText(helperCarpooler.getStartPoint());
         holder.destination.setText(helperCarpooler.getEndPoint());
+        holder.date.setText(helperCarpooler.getDate());
 
-        DecimalFormat df = new DecimalFormat("###.####");
+        DecimalFormat df = new DecimalFormat("###.##");
         holder.distance.setText(String.valueOf(df.format(helperCarpooler.getDistance())) + " km");
     }
 
@@ -46,14 +47,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView origin, destination, distance;
+        TextView origin, destination, date, distance;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            origin =itemView.findViewById(R.id.originTV);
-            destination =itemView.findViewById(R.id.desinationTV);
-            distance =itemView.findViewById(R.id.distanceTV);
+            origin =itemView.findViewById(R.id.originRC);
+            destination =itemView.findViewById(R.id.destinationRC);
+            date = itemView.findViewById(R.id.dateRC);
+            distance =itemView.findViewById(R.id.distanceRC);
 
         }
     }

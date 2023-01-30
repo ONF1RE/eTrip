@@ -1,14 +1,553 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.RewardFragment">
+    tools:context=".fragment.RidesFragment"
+    android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
+        android:background="@color/lavender"
+        android:orientation="horizontal">
 
-</FrameLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_12mdp"
+                android:layout_marginTop="@dimen/_10mdp"
+                android:gravity="center"
+                android:text="Available Points"
+                android:textSize="@dimen/_14font_mdp"
+                android:textColor="#D2D5EA"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/pointAccumulator"
+                android:layout_marginStart="@dimen/_12mdp"
+                android:layout_marginTop="@dimen/_2mdp"
+                android:gravity="center"
+                android:text="100 Pts"
+                android:textSize="@dimen/_20font_mdp"
+                android:textColor="@color/white"
+                android:textStyle="bold"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/transaction"
+                android:layout_marginTop="@dimen/_27mdp"
+                android:gravity="center"
+                android:text="Transaction History"
+                app:cornerRadius="15dp"
+                android:textSize="@dimen/_9font_mdp"
+                android:textColor="@color/lavender"
+                android:backgroundTint="@color/white"
+                android:textStyle="bold"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.7">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        app:cardCornerRadius="@dimen/_10mdp"
+                        android:layout_margin="@dimen/_10mdp"
+                        app:cardElevation="@dimen/_5mdp"
+                        android:elevation="@dimen/_5mdp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:id="@+id/travel_icon"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_55mdp"
+                                android:layout_marginStart="@dimen/_10mdp"
+                                android:layout_marginTop="@dimen/_8mdp"
+                                android:layout_marginEnd="@dimen/_10mdp"
+                                android:layout_marginBottom="@dimen/_8mdp"
+                                android:src="@drawable/travel_24"
+                                app:civ_border_color="#FF000000"
+                                app:civ_border_width="2dp" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/travel_text"
+                                android:layout_below="@+id/travel_icon"
+                                android:layout_marginStart="@dimen/_5mdp"
+                                android:layout_marginEnd="@dimen/_5mdp"
+                                android:gravity="center"
+                                android:text="Travel Voucher"
+                                android:textSize="@dimen/_13font_mdp" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/travel_point"
+                                android:layout_below="@+id/travel_text"
+                                android:layout_marginStart="@dimen/_5mdp"
+                                android:layout_marginEnd="@dimen/_5mdp"
+                                android:gravity="center"
+                                android:text="500 Pts"
+                                android:textSize="@dimen/_13font_mdp"
+                                android:textColor="@color/lavender"
+                                android:textStyle="bold"/>
+
+                            <Button
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/travel_redeem"
+                                android:layout_below="@+id/travel_point"
+                                android:layout_marginStart="@dimen/_10mdp"
+                                android:layout_marginEnd="@dimen/_10mdp"
+                                android:gravity="center"
+                                android:text="REDEEM"
+                                android:textSize="@dimen/_13font_mdp"
+                                android:textColor="@color/white"
+                                android:textStyle="bold"/>
+
+                        </RelativeLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        app:cardCornerRadius="@dimen/_10mdp"
+                        android:layout_margin="@dimen/_10mdp"
+                        app:cardElevation="@dimen/_5mdp"
+                        android:elevation="@dimen/_5mdp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:id="@+id/cash_icon"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_55mdp"
+                                android:layout_marginStart="@dimen/_10mdp"
+                                android:layout_marginTop="@dimen/_8mdp"
+                                android:layout_marginEnd="@dimen/_10mdp"
+                                android:layout_marginBottom="@dimen/_8mdp"
+                                android:src="@drawable/voucher_24"
+                                app:civ_border_color="#FF000000"
+                                app:civ_border_width="2dp" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/cash_text"
+                                android:layout_below="@+id/cash_icon"
+                                android:layout_marginStart="@dimen/_5mdp"
+                                android:layout_marginEnd="@dimen/_5mdp"
+                                android:gravity="center"
+                                android:text="Cash Voucher"
+                                android:textSize="@dimen/_13font_mdp" />
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/cash_point"
+                                android:layout_below="@+id/cash_text"
+                                android:layout_marginStart="@dimen/_5mdp"
+                                android:layout_marginEnd="@dimen/_5mdp"
+                                android:gravity="center"
+                                android:text="500 Pts"
+                                android:textSize="@dimen/_13font_mdp"
+                                android:textColor="@color/lavender"
+                                android:textStyle="bold"/>
+
+                            <Button
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/cash_redeem"
+                                android:layout_below="@+id/cash_point"
+                                android:layout_marginStart="@dimen/_10mdp"
+                                android:layout_marginEnd="@dimen/_10mdp"
+                                android:gravity="center"
+                                android:text="REDEEM"
+                                android:textSize="@dimen/_13font_mdp"
+                                android:textColor="@color/white"
+                                android:textStyle="bold"/>
+
+                        </RelativeLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        app:cardCornerRadius="@dimen/_10mdp"
+                        android:layout_margin="@dimen/_10mdp"
+                        app:cardElevation="@dimen/_5mdp"
+                        android:elevation="@dimen/_5mdp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:id="@+id/movie_icon"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_55mdp"
+                                android:layout_marginStart="@dimen/_10mdp"
+                                android:layout_marginTop="@dimen/_8mdp"
+                                android:layout_marginEnd="@dimen/_10mdp"
+                                android:layout_marginBottom="@dimen/_8mdp"
+                                android:src="@drawable/movie_24"
+                                app:civ_border_color="#FF000000"
+                                app:civ_border_width="2dp" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/movie_text"
+                                android:layout_below="@+id/movie_icon"
+                                android:layout_marginStart="@dimen/_5mdp"
+                                android:layout_marginEnd="@dimen/_5mdp"
+                                android:gravity="center"
+                                android:text="Movie Ticket"
+                                android:textSize="@dimen/_13font_mdp" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/movie_point"
+                                android:layout_below="@+id/movie_text"
+                                android:layout_marginStart="@dimen/_5mdp"
+                                android:layout_marginEnd="@dimen/_5mdp"
+                                android:gravity="center"
+                                android:text="400 Pts"
+                                android:textSize="@dimen/_13font_mdp"
+                                android:textColor="@color/lavender"
+                                android:textStyle="bold"/>
+
+                            <Button
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/movie_redeem"
+                                android:layout_below="@+id/movie_point"
+                                android:layout_marginStart="@dimen/_10mdp"
+                                android:layout_marginEnd="@dimen/_10mdp"
+                                android:gravity="center"
+                                android:text="REDEEM"
+                                android:textSize="@dimen/_13font_mdp"
+                                android:textColor="@color/white"
+                                android:textStyle="bold"/>
+
+                        </RelativeLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        app:cardCornerRadius="@dimen/_10mdp"
+                        android:layout_margin="@dimen/_10mdp"
+                        app:cardElevation="@dimen/_5mdp"
+                        android:elevation="@dimen/_5mdp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:id="@+id/themepark_icon"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_55mdp"
+                                android:layout_marginStart="@dimen/_10mdp"
+                                android:layout_marginTop="@dimen/_8mdp"
+                                android:layout_marginEnd="@dimen/_10mdp"
+                                android:layout_marginBottom="@dimen/_8mdp"
+                                android:src="@drawable/ticket_24"
+                                app:civ_border_color="#FF000000"
+                                app:civ_border_width="2dp" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/themepark_text"
+                                android:layout_below="@+id/themepark_icon"
+                                android:layout_marginStart="@dimen/_5mdp"
+                                android:layout_marginEnd="@dimen/_5mdp"
+                                android:gravity="center"
+                                android:text="Theme Park Ticket"
+                                android:textSize="@dimen/_13font_mdp" />
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/themepark_point"
+                                android:layout_below="@+id/themepark_text"
+                                android:layout_marginStart="@dimen/_5mdp"
+                                android:layout_marginEnd="@dimen/_5mdp"
+                                android:gravity="center"
+                                android:text="800 Pts"
+                                android:textSize="@dimen/_13font_mdp"
+                                android:textColor="@color/lavender"
+                                android:textStyle="bold"/>
+
+                            <Button
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/themepark_redeem"
+                                android:layout_below="@+id/themepark_point"
+                                android:layout_marginStart="@dimen/_10mdp"
+                                android:layout_marginEnd="@dimen/_10mdp"
+                                android:gravity="center"
+                                android:text="REDEEM"
+                                android:textSize="@dimen/_13font_mdp"
+                                android:textColor="@color/white"
+                                android:textStyle="bold"/>
+
+                        </RelativeLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        app:cardCornerRadius="@dimen/_10mdp"
+                        android:layout_margin="@dimen/_10mdp"
+                        app:cardElevation="@dimen/_5mdp"
+                        android:elevation="@dimen/_5mdp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:id="@+id/bottle_icon"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_55mdp"
+                                android:layout_marginStart="@dimen/_10mdp"
+                                android:layout_marginTop="@dimen/_8mdp"
+                                android:layout_marginEnd="@dimen/_10mdp"
+                                android:layout_marginBottom="@dimen/_8mdp"
+                                android:src="@drawable/bottle_24"
+                                app:civ_border_color="#FF000000"
+                                app:civ_border_width="2dp" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/bottle_text"
+                                android:layout_below="@+id/bottle_icon"
+                                android:layout_marginStart="@dimen/_5mdp"
+                                android:layout_marginEnd="@dimen/_5mdp"
+                                android:gravity="center"
+                                android:text="Bottle 750ml"
+                                android:textSize="@dimen/_13font_mdp" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/bottle_point"
+                                android:layout_below="@+id/bottle_text"
+                                android:layout_marginStart="@dimen/_5mdp"
+                                android:layout_marginEnd="@dimen/_5mdp"
+                                android:gravity="center"
+                                android:text="300 Pts"
+                                android:textSize="@dimen/_13font_mdp"
+                                android:textColor="@color/lavender"
+                                android:textStyle="bold"/>
+
+                            <Button
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/bottle_redeem"
+                                android:layout_below="@+id/bottle_point"
+                                android:layout_marginStart="@dimen/_10mdp"
+                                android:layout_marginEnd="@dimen/_10mdp"
+                                android:gravity="center"
+                                android:text="REDEEM"
+                                android:textSize="@dimen/_13font_mdp"
+                                android:textColor="@color/white"
+                                android:textStyle="bold"/>
+
+                        </RelativeLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        app:cardCornerRadius="@dimen/_10mdp"
+                        android:layout_margin="@dimen/_10mdp"
+                        app:cardElevation="@dimen/_5mdp"
+                        android:elevation="@dimen/_5mdp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:id="@+id/powerbank_icon"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_55mdp"
+                                android:layout_marginStart="@dimen/_10mdp"
+                                android:layout_marginTop="@dimen/_8mdp"
+                                android:layout_marginEnd="@dimen/_10mdp"
+                                android:layout_marginBottom="@dimen/_8mdp"
+                                android:src="@drawable/powerbank_24"
+                                app:civ_border_color="#FF000000"
+                                app:civ_border_width="2dp" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/powerbank_text"
+                                android:layout_below="@+id/powerbank_icon"
+                                android:layout_marginStart="@dimen/_5mdp"
+                                android:layout_marginEnd="@dimen/_5mdp"
+                                android:gravity="center"
+                                android:text="Powerbank 10000mAH"
+                                android:textSize="@dimen/_13font_mdp" />
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/powerbank_point"
+                                android:layout_below="@+id/powerbank_text"
+                                android:layout_marginStart="@dimen/_5mdp"
+                                android:layout_marginEnd="@dimen/_5mdp"
+                                android:gravity="center"
+                                android:text="600 Pts"
+                                android:textSize="@dimen/_13font_mdp"
+                                android:textColor="@color/lavender"
+                                android:textStyle="bold"/>
+
+                            <Button
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/powerbank_redeem"
+                                android:layout_below="@+id/powerbank_point"
+                                android:layout_marginStart="@dimen/_10mdp"
+                                android:layout_marginEnd="@dimen/_10mdp"
+                                android:gravity="center"
+                                android:text="REDEEM"
+                                android:textSize="@dimen/_13font_mdp"
+                                android:textColor="@color/white"
+                                android:textStyle="bold"/>
+
+                        </RelativeLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

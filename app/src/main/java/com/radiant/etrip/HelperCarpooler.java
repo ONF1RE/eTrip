@@ -2,18 +2,21 @@ package com.radiant.etrip;
 
 public class HelperCarpooler {
     String startPoint, endPoint, date, time, carType;
-    Double distance;
+    Double distance, carbonSaved;
+    int points;
 
     public HelperCarpooler() {
     }
 
-    public HelperCarpooler(String startPoint, String endPoint, String date, String time, String carType, Double distance) {
+    public HelperCarpooler(String startPoint, String endPoint, String date, String time, String carType, Double distance, Double carbonSaved, int points) {
         this.startPoint = startPoint;
         this.endPoint = endPoint;
         this.date = date;
         this.time = time;
         this.carType = carType;
         this.distance = distance;
+        this.carbonSaved =carbonSaved;
+        this.points = points;
     }
 
     public String getStartPoint() {
@@ -62,5 +65,21 @@ public class HelperCarpooler {
 
     public void setDistance(Double distance) {
         this.distance = distance;
+    }
+
+    public Double getCarbonSaved() {
+        return carbonSaved;
+    }
+
+    public void setCarbonSaved(Double carbonSaved) {
+        this.carbonSaved = carbonSaved;
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
     }
 }

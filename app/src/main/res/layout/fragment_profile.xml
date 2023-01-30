@@ -49,8 +49,8 @@
         android:orientation="vertical"
         android:padding="10dp"
         android:background="@drawable/white_background"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
         android:layout_marginTop="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -59,10 +59,10 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
@@ -71,29 +71,28 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:layout_width="80dp"
-                    android:layout_height="60dp"
-                    android:id="@+id/postsNumber"
-                    android:text="27"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Email"
                     android:gravity="center"
-                    android:textAlignment="center"
-                    android:textColor="@color/lavender"
-                    android:textSize="26sp"
-                    android:textStyle="bold"/>
+                    android:textSize="16sp"/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/posts"
-                    android:text="Posts"
+                    android:id="@+id/email"
+                    android:text="email@gmail.com"
                     android:gravity="center"
-                    android:textSize="16sp"/>
+                    android:textAlignment="center"
+                    android:textColor="@color/lavender"
+                    android:textSize="16sp"
+                    android:textStyle="bold"/>
 
 
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
@@ -102,29 +101,28 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:layout_width="80dp"
-                    android:layout_height="60dp"
-                    android:id="@+id/followerNumber"
-                    android:text="27"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Name"
                     android:gravity="center"
-                    android:textAlignment="center"
-                    android:textColor="@color/lavender"
-                    android:textSize="26sp"
-                    android:textStyle="bold"/>
+                    android:textSize="16sp"/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/follower"
-                    android:text="Posts"
+                    android:id="@+id/name"
+                    android:text="Name"
                     android:gravity="center"
-                    android:textSize="16sp"/>
+                    android:textAlignment="center"
+                    android:textColor="@color/lavender"
+                    android:textSize="16sp"
+                    android:textStyle="bold"/>
 
 
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
@@ -133,23 +131,23 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:layout_width="80dp"
-                    android:layout_height="60dp"
-                    android:id="@+id/followingNumber"
-                    android:text="27"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Password"
                     android:gravity="center"
-                    android:textAlignment="center"
-                    android:textColor="@color/lavender"
-                    android:textSize="26sp"
-                    android:textStyle="bold"/>
+                    android:textSize="16sp"/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/following"
-                    android:text="Posts"
+                    android:id="@+id/password"
+                    android:text="123"
                     android:gravity="center"
-                    android:textSize="16sp"/>
+                    android:textAlignment="center"
+                    android:textColor="@color/lavender"
+                    android:textSize="16sp"
+                    android:textStyle="bold"/>
+
             </LinearLayout>
 
         </LinearLayout>
@@ -181,5 +179,15 @@
         app:layout_constraintTop_toBottomOf="@+id/editButton"
         app:layout_constraintEnd_toEndOf="@+id/linearLayout"
         app:layout_constraintStart_toStartOf="@+id/linearLayout"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="vertical"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/deleteButton">
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

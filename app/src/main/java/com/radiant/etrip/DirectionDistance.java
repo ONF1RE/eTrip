@@ -1,6 +1,5 @@
 package com.radiant.etrip;
 
-import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -8,7 +7,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -44,14 +42,13 @@ import com.google.firebase.database.ValueEventListener;
 import com.radiant.etrip.databinding.ActivityDirectionDistanceBinding;
 import com.radiant.etrip.direction.FetchURL;
 import com.radiant.etrip.direction.TaskLoadedCallback;
-import com.radiant.etrip.fragment.PsgMapsFragmentD;
 import com.radiant.etrip.fragment.RidesFragment;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 
 public class DirectionDistance extends AppCompatActivity implements OnMapReadyCallback, TaskLoadedCallback {
 
@@ -61,15 +58,16 @@ public class DirectionDistance extends AppCompatActivity implements OnMapReadyCa
     private Marker marker;
     private Polyline polyline;
 
+    List<Double> bestMatched = new ArrayList<>(Arrays.asList(-0.01, -0.01, -0.01));
     LatLng origin, dest;
     List<MarkerOptions> markerOptionsList = new ArrayList<>();
-    List<Model> modelList = new ArrayList<>();
+    List<HelperDriver> helperDriverList = new ArrayList<>();
 
-    String startPoint, endPoint, date, time, carType, seat;
-    Double distance;
+    String nameDest, startPoint, endPoint, date, time, carType, seat;
+    Double distance, distancePassengerDriver;
 
     FirebaseDatabase database;
-    DatabaseReference referenceDriver, referenceCarpooler;
+    DatabaseReference reference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,8 +77,7 @@ public class DirectionDistance extends AppCompatActivity implements OnMapReadyCa
 
         String username = LoginActivity.getUsername();
         database = FirebaseDatabase.getInstance();
-        referenceDriver = FirebaseDatabase.getInstance().getReference("Drivers");
-        referenceCarpooler = FirebaseDatabase.getInstance().getReference("Users");
+        reference = FirebaseDatabase.getInstance().getReference("Users");
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
@@ -89,6 +86,7 @@ public class DirectionDistance extends AppCompatActivity implements OnMapReadyCa
         Double lngValueStart = Double.parseDouble(bundle.getString("longitude_start"));
         Double latValueEnd = Double.parseDouble(bundle.getString("latitude_end"));
         Double lngValueEnd = Double.parseDouble(bundle.getString("longitude_end"));
+        nameDest = bundle.getString("name_dest");
 
         origin = new LatLng(latValueStart, lngValueStart);
         dest = new LatLng(latValueEnd, lngValueEnd);
@@ -117,9 +115,12 @@ public class DirectionDistance extends AppCompatActivity implements OnMapReadyCa
                 }
                 startPoint = list.get(0).getAdminArea();
 
+                double carbonSaved = CarbonSaved(distance);
+                int points = PointAccumulator(carbonSaved);
+
                 // store into Firebase
-                HelperCarpooler helperCarpooler = new HelperCarpooler(startPoint, endPoint, date, time, carType, distance);
-                referenceCarpooler.child(username).child("Carpools").push().setValue(helperCarpooler).addOnSuccessListener(new OnSuccessListener<Void>() {
+                HelperCarpooler helperCarpooler = new HelperCarpooler(startPoint, endPoint, date, time, carType, distance, carbonSaved, points);
+                reference.child(username).child("Carpools").push().setValue(helperCarpooler).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
                         Toast.makeText(DirectionDistance.this, "Carpool Request Received", Toast.LENGTH_SHORT).show();
@@ -130,6 +131,23 @@ public class DirectionDistance extends AppCompatActivity implements OnMapReadyCa
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Toast.makeText(DirectionDistance.this, "Failed" + e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+
+                reference.child(username).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(snapshot.child("pointsAccumulator").exists()) {
+                            int pointsFromDB = snapshot.child("pointsAccumulator").getValue(int.class);
+                            pointsFromDB = pointsFromDB + points;
+                            reference.child(username).child("pointsAccumulator").setValue(pointsFromDB);
+                        } else {
+                            reference.child(username).child("pointsAccumulator").setValue(points);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
                     }
                 });
             }
@@ -146,21 +164,41 @@ public class DirectionDistance extends AppCompatActivity implements OnMapReadyCa
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
         mMap = googleMap;
-
-        referenceDriver.addListenerForSingleValueEvent(new ValueEventListener() {
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    Model model = dataSnapshot.getValue(Model.class);
-                    modelList.add(model);
-                    LatLng latLng = new LatLng(model.getLatitude(), model.getLongitude());
-                    markerOptions = new MarkerOptions();
-                    markerOptions.position(latLng)
-                            .icon(bitmapDescriptorFromVector(DirectionDistance.this, R.drawable.drivers_24));
-                    marker = mMap.addMarker(markerOptions);
-                    markerOptionsList.add(markerOptions);
+
+                    for (DataSnapshot childSnapshot : dataSnapshot.child("Drivers").getChildren()) {
+
+                        HelperDriver helperDriver = childSnapshot.getValue(HelperDriver.class);
+
+                        if (helperDriver.getDestination().equals(nameDest)) {
+
+                            LatLng latLng = new LatLng(helperDriver.getLatitude(), helperDriver.getLongitude());
+                            markerOptions = new MarkerOptions();
+
+                            distancePassengerDriver = getDistanceBetween(origin, latLng);
+
+                            for (Double i : bestMatched){
+                                if (distancePassengerDriver > i){
+                                    i = distancePassengerDriver;
+                                    helperDriverList.add(helperDriver);
+                                    markerOptions.position(latLng)
+                                            .icon(bitmapDescriptorFromVector(DirectionDistance.this, R.drawable.drivers_24));
+                                    marker = mMap.addMarker(markerOptions);
+                                    markerOptionsList.add(markerOptions);
+                                }
+                            }
+                        }
+                    }
                 }
-                showAllMarkers();
+                if (markerOptionsList.isEmpty()) {
+                    Toast.makeText(DirectionDistance.this, "Sorry, no drivers found", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(DirectionDistance.this, "Drivers found", Toast.LENGTH_SHORT).show();
+                    showAllMarkers();
+                }
 
                 // adding on click listener to marker of google maps.
                 mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
@@ -169,7 +207,7 @@ public class DirectionDistance extends AppCompatActivity implements OnMapReadyCa
                         binding.layoutInfo.setVisibility(View.VISIBLE);
                         Toast.makeText(DirectionDistance.this, "Please wait...", Toast.LENGTH_SHORT).show();
 
-                        for(Model m : modelList){
+                        for(HelperDriver m : helperDriverList){
                             if(marker.getPosition().latitude == m.getLatitude()){
                                 endPoint = m.getDestination();
                                 date = m.getDate();
@@ -269,5 +307,17 @@ public class DirectionDistance extends AppCompatActivity implements OnMapReadyCa
             polyline.remove();
 
         polyline = mMap.addPolyline((PolylineOptions) values[0]);
+    }
+
+    public double CarbonSaved(double distance) {
+        double carbonSavedPerKm = 0.192; // 0.192kg of carbon saved per kilometer travelled
+        double carbonSaved = distance * carbonSavedPerKm;
+        return carbonSaved;
+    }
+
+    public int PointAccumulator(double carbonSaved) {
+        int pointPerCarbonSaved = 2; // 2 points per kg of carbon saved
+        int points = (int)carbonSaved * pointPerCarbonSaved;
+        return points;
     }
 }

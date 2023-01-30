@@ -5,12 +5,17 @@
     android:layout_height="wrap_content"
     app:cardElevation="8dp"
     app:cardCornerRadius="8dp"
-    android:layout_margin="16dp">
+    android:layout_marginTop="15dp"
+    android:layout_marginLeft="15dp"
+    android:layout_marginRight="15dp">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="15dp"
+        android:layout_weight="0.7"
         android:orientation="vertical">
 
         <LinearLayout
@@ -22,19 +27,21 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Origin :"
+                android:text="From :"
                 android:textColor="@color/black"
-                android:textSize="18sp"
-                android:textStyle="bold"/>
+                android:textSize="12sp"
+                android:textStyle="italic"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/originTV"
+                android:id="@+id/originRC"
                 android:text="Origin"
                 android:layout_marginLeft="8dp"
                 android:textColor="@color/black"
-                android:textSize="16sp"/>
+                android:textSize="12sp"/>
+
+
         </LinearLayout>
 
         <LinearLayout
@@ -46,19 +53,43 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Destination :"
+                android:text="To :"
                 android:textColor="@color/black"
-                android:textSize="18sp"
-                android:textStyle="bold"/>
+                android:textSize="12sp"
+                android:textStyle="italic"/>
+
+            <TextView
+                android:id="@+id/destinationRC"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:text="Destination"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/desinationTV"
-                android:text="Destination"
+                android:text="Date :"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:textStyle="italic"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/dateRC"
+                android:text="Date"
                 android:layout_marginLeft="8dp"
                 android:textColor="@color/black"
-                android:textSize="16sp"/>
+                android:textSize="12sp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -72,19 +103,22 @@
                 android:layout_height="wrap_content"
                 android:text="Distance :"
                 android:textColor="@color/black"
-                android:textSize="18sp"
-                android:textStyle="bold"/>
+                android:textSize="12sp"
+                android:textStyle="italic"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/distanceTV"
-                android:text="Distance"
+                android:id="@+id/distanceRC"
+                android:text="100 km"
                 android:layout_marginLeft="8dp"
                 android:textColor="@color/black"
-                android:textSize="16sp"/>
+                android:textSize="12sp"/>
         </LinearLayout>
 
     </LinearLayout>
+
+
+
 
 </androidx.cardview.widget.CardView>

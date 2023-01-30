@@ -59,6 +59,20 @@ public class RidesFragment extends Fragment {
             }
         });
 
+        binding.activity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment fragment = new RecentRidesFragment();
+                FragmentTransaction fragmentTransaction = getActivity()
+                        .getSupportFragmentManager()
+                        .beginTransaction();
+                fragmentTransaction.replace(R.id.container, fragment)
+                        .addToBackStack("name")
+                        .setReorderingAllowed(true)
+                        .commit();
+            }
+        });
+
         return binding.getRoot();
     }
 }

@@ -8,8 +8,13 @@
 
     <item
         android:title="Carbon Tracker"
-        android:icon="@drawable/reward_24"
+        android:icon="@drawable/carbon_24"
         android:id="@+id/tracker"/>
+
+    <item
+        android:title="Reward"
+        android:icon="@drawable/reward_24"
+        android:id="@+id/reward"/>
 
     <item
         android:title="Profile"

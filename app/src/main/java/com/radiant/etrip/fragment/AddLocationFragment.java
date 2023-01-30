@@ -1,33 +1,44 @@
 package com.radiant.etrip.fragment;
 
 import android.app.ProgressDialog;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.util.Log;
-import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.radiant.etrip.Model;
+import com.google.firebase.database.ValueEventListener;
+import com.radiant.etrip.HelperDriver;
+import com.radiant.etrip.LoginActivity;
 import com.radiant.etrip.R;
 import com.radiant.etrip.databinding.FragmentAddLocationBinding;
-import com.radiant.etrip.databinding.FragmentProfileBinding;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AddLocationFragment extends Fragment {
 
     FragmentAddLocationBinding binding;
-    FirebaseDatabase firebaseDatabase;
+    DatabaseReference reference;
+    String username;
+    double  distance;
+    double destLatitude, destLongitude;
     ProgressDialog progressDialog;
 
     public AddLocationFragment() {
@@ -38,7 +49,7 @@ public class AddLocationFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        firebaseDatabase = FirebaseDatabase.getInstance();
+        reference = FirebaseDatabase.getInstance().getReference("Users");
         progressDialog = new ProgressDialog(getContext());
     }
 
@@ -47,6 +58,7 @@ public class AddLocationFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentAddLocationBinding.inflate(inflater, container, false);
+        username = LoginActivity.getUsername();
 
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.setTitle("Creating...");
@@ -63,24 +75,65 @@ public class AddLocationFragment extends Fragment {
         binding.submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // get the distance
+                Geocoder geocoder = new Geocoder(getContext());
+                List<Address> list = new ArrayList<>();
+                try{
+                    list = geocoder.getFromLocationName(binding.destination.getText().toString().trim(), 1);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                if (list.size() > 0){
+                    Address address = list.get(0);
+                    destLatitude = address.getLatitude();
+                    destLongitude = address.getLongitude();
+                }
+                LatLng latLngDestination = new LatLng(destLatitude, destLongitude);
+
+                distance = getDistanceBetween(new LatLng(Double.parseDouble(latValue),Double.parseDouble(lngValue)),
+                        latLngDestination);
+
+                double carbonSaved = CarbonSaved(distance);
+                int points = PointAccumulator(carbonSaved);
+
+                reference.child(username).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(snapshot.child("pointsAccumulator").exists()) {
+                            int pointsFromDB = snapshot.child("pointsAccumulator").getValue(int.class);
+                            pointsFromDB = pointsFromDB + points;
+                            reference.child(username).child("pointsAccumulator").setValue(pointsFromDB);
+                        } else {
+                            reference.child(username).child("pointsAccumulator").setValue(points);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                    }
+                });
 
                 progressDialog.show();
-                Model post = new Model();
-                post.setLatitude(Double.parseDouble(binding.latitude2.getText().toString().trim()));
-                post.setLongitude(Double.parseDouble(binding.longitude2.getText().toString().trim()));
-                post.setDestination(binding.destination.getText().toString().trim());
-                post.setDate(binding.date.getText().toString().trim());
-                post.setTime(binding.time.getText().toString().trim());
-                post.setCarType(binding.carType.getText().toString().trim());
-                post.setSeat(binding.seat.getText().toString().trim());
+                HelperDriver helperDriver = new HelperDriver();
+                helperDriver.setLatitude(Double.parseDouble(latValue));
+                helperDriver.setLongitude(Double.parseDouble(lngValue));
+                helperDriver.setDestination(binding.destination.getText().toString().trim());
+                helperDriver.setDate(binding.date.getText().toString().trim());
+                helperDriver.setTime(binding.time.getText().toString().trim());
+                helperDriver.setCarType(binding.carType.getText().toString().trim());
+                helperDriver.setCarPlate(binding.carPlate.getText().toString().trim());
+                helperDriver.setSeat(binding.seat.getText().toString().trim());
+                helperDriver.setDistance(distance);
+                helperDriver.setCarbonSaved(carbonSaved);
+                helperDriver.setPoints(points);
 
-                firebaseDatabase.getReference().child("Drivers").push().setValue(post).addOnSuccessListener(new OnSuccessListener<Void>() {
+                reference.child(username).child("Drivers").push().setValue(helperDriver).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
                         progressDialog.dismiss();
                         Toast.makeText(getContext(), "Successful", Toast.LENGTH_SHORT).show();
 
-                        Fragment fragment = new HomeFragment();
+                        Fragment fragment = new RidesFragment();
                         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                         transaction.replace(R.id.container, fragment).commit();
                     }
@@ -95,5 +148,27 @@ public class AddLocationFragment extends Fragment {
         });
 
         return binding.getRoot();
+    }
+
+    public Double getDistanceBetween(LatLng origin, LatLng dest) {
+        if (origin == null || dest == null)
+            return null;
+        float[] result = new float[1];
+        Location.distanceBetween(origin.latitude, origin.longitude,
+                dest.latitude, dest.longitude, result);
+
+        return (double) (result[0]/1000);
+    }
+
+    public double CarbonSaved(double distance) {
+        double carbonSavedPerKm = 0.192; // 0.192kg of carbon saved per kilometer travelled
+        double carbonSaved = distance * carbonSavedPerKm;
+        return carbonSaved;
+    }
+
+    public int PointAccumulator(double carbonSaved) {
+        int pointPerCarbonSaved = 2; // 2 points per kg of carbon saved
+        int points = (int)carbonSaved * pointPerCarbonSaved;
+        return points;
     }
 }
