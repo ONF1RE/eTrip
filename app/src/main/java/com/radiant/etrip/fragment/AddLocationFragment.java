@@ -13,6 +13,9 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
@@ -30,13 +33,14 @@ import com.radiant.etrip.databinding.FragmentAddLocationBinding;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class AddLocationFragment extends Fragment {
 
     FragmentAddLocationBinding binding;
     DatabaseReference reference;
-    String username;
+    String username, destination;
     double  distance;
     double destLatitude, destLongitude;
     ProgressDialog progressDialog;
@@ -72,6 +76,27 @@ public class AddLocationFragment extends Fragment {
         binding.latitude2.setText(latValue);
         binding.longitude2.setText(lngValue);
 
+        Spinner spinner = binding.spinner;
+        String[] locations = {"Kuala Lumpur", "Selangor", "Kedah", "Penang", "Malacca", "Negeri Sembilan", "Johor", "Terengganu", "Kelantan", "Pahang", "Perak", "Perlis", "Labuan", "Putrajaya"};
+        ArrayList<String> locationList = new ArrayList<>(Arrays.asList(locations));
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, locationList);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                destination = parent.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Do nothing
+            }
+        });
+
+
         binding.submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,7 +104,7 @@ public class AddLocationFragment extends Fragment {
                 Geocoder geocoder = new Geocoder(getContext());
                 List<Address> list = new ArrayList<>();
                 try{
-                    list = geocoder.getFromLocationName(binding.destination.getText().toString().trim(), 1);
+                    list = geocoder.getFromLocationName(destination, 1);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -95,6 +120,20 @@ public class AddLocationFragment extends Fragment {
 
                 double carbonSaved = CarbonSaved(distance);
                 int points = PointAccumulator(carbonSaved);
+
+                progressDialog.show();
+                HelperDriver helperDriver = new HelperDriver();
+                helperDriver.setLatitude(Double.parseDouble(latValue));
+                helperDriver.setLongitude(Double.parseDouble(lngValue));
+                helperDriver.setDestination(destination);
+                helperDriver.setDate(binding.date.getText().toString().trim());
+                helperDriver.setTime(binding.time.getText().toString().trim());
+                helperDriver.setCarType(binding.carType.getText().toString().trim());
+                helperDriver.setCarPlate(binding.carPlate.getText().toString().trim());
+                helperDriver.setSeat(binding.seat.getText().toString().trim());
+                helperDriver.setDistance(distance);
+                helperDriver.setCarbonSaved(carbonSaved);
+                helperDriver.setPoints(points);
 
                 reference.child(username).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -112,20 +151,6 @@ public class AddLocationFragment extends Fragment {
                     public void onCancelled(@NonNull DatabaseError error) {
                     }
                 });
-
-                progressDialog.show();
-                HelperDriver helperDriver = new HelperDriver();
-                helperDriver.setLatitude(Double.parseDouble(latValue));
-                helperDriver.setLongitude(Double.parseDouble(lngValue));
-                helperDriver.setDestination(binding.destination.getText().toString().trim());
-                helperDriver.setDate(binding.date.getText().toString().trim());
-                helperDriver.setTime(binding.time.getText().toString().trim());
-                helperDriver.setCarType(binding.carType.getText().toString().trim());
-                helperDriver.setCarPlate(binding.carPlate.getText().toString().trim());
-                helperDriver.setSeat(binding.seat.getText().toString().trim());
-                helperDriver.setDistance(distance);
-                helperDriver.setCarbonSaved(carbonSaved);
-                helperDriver.setPoints(points);
 
                 reference.child(username).child("Drivers").push().setValue(helperDriver).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override

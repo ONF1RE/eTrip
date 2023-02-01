@@ -42,6 +42,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.radiant.etrip.databinding.ActivityDirectionDistanceBinding;
 import com.radiant.etrip.direction.FetchURL;
 import com.radiant.etrip.direction.TaskLoadedCallback;
+import com.radiant.etrip.fragment.ProfileFragment;
 import com.radiant.etrip.fragment.RidesFragment;
 
 import java.io.IOException;
@@ -63,7 +64,7 @@ public class DirectionDistance extends AppCompatActivity implements OnMapReadyCa
     List<MarkerOptions> markerOptionsList = new ArrayList<>();
     List<HelperDriver> helperDriverList = new ArrayList<>();
 
-    String nameDest, startPoint, endPoint, date, time, carType, seat;
+    String nameDest, startPoint, endPoint, date, time, carType, seat, location;
     Double distance, distancePassengerDriver;
 
     FirebaseDatabase database;
@@ -173,12 +174,25 @@ public class DirectionDistance extends AppCompatActivity implements OnMapReadyCa
 
                         HelperDriver helperDriver = childSnapshot.getValue(HelperDriver.class);
 
-                        if (helperDriver.getDestination().equals(nameDest)) {
+                        Geocoder geocoder = new Geocoder(DirectionDistance.this);
+                        List<Address> list = new ArrayList<>();
+                        try{
+                            list = geocoder.getFromLocationName(helperDriver.getDestination(), 1);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        if (list.size() > 0) {
+                            Address address = list.get(0);
+                            location = address.getAdminArea();
+                        }
+
+                        if (location.equals(nameDest)) {
 
                             LatLng latLng = new LatLng(helperDriver.getLatitude(), helperDriver.getLongitude());
                             markerOptions = new MarkerOptions();
 
                             distancePassengerDriver = getDistanceBetween(origin, latLng);
+
 
                             for (Double i : bestMatched){
                                 if (distancePassengerDriver > i){
@@ -195,6 +209,8 @@ public class DirectionDistance extends AppCompatActivity implements OnMapReadyCa
                 }
                 if (markerOptionsList.isEmpty()) {
                     Toast.makeText(DirectionDistance.this, "Sorry, no drivers found", Toast.LENGTH_SHORT).show();
+                    setContentView(R.layout.activity_main);
+                    ReplaceFragment(new RidesFragment());
                 } else {
                     Toast.makeText(DirectionDistance.this, "Drivers found", Toast.LENGTH_SHORT).show();
                     showAllMarkers();

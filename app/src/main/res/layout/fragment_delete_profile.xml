@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.DeleteProfileFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/lavender_background">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                app:cardCornerRadius="@dimen/_10mdp"
+                android:layout_margin="@dimen/_10mdp"
+                app:cardElevation="@dimen/_5mdp"
+                android:elevation="@dimen/_5mdp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/travel_icon"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_55mdp"
+                        android:layout_marginStart="@dimen/_10mdp"
+                        android:layout_marginTop="@dimen/_8mdp"
+                        android:layout_marginEnd="@dimen/_10mdp"
+                        android:layout_marginBottom="@dimen/_8mdp"
+                        android:src="@drawable/logo"
+                        app:civ_border_color="#FFFFFF"
+                        app:civ_border_width="2dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/delete_text"
+                        android:layout_below="@+id/travel_icon"
+                        android:layout_marginStart="@dimen/_5mdp"
+                        android:layout_marginEnd="@dimen/_5mdp"
+                        android:gravity="center"
+                        android:text="Confirm to delete?"
+                        android:textSize="@dimen/_20font_mdp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/delete_text"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="@dimen/_10mdp"
+                        android:layout_marginBottom="@dimen/_10mdp">
+
+                        <Button
+                            android:id="@+id/yes"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/delete_text"
+                            android:layout_weight="1"
+                            android:layout_marginStart="@dimen/_20mdp"
+                            android:layout_marginEnd="@dimen/_20mdp"
+                            android:gravity="center"
+                            android:text="YES"
+                            android:textSize="@dimen/_13font_mdp"
+                            android:textColor="@color/white"
+                            android:textStyle="bold"/>
+
+                        <Button
+                            android:id="@+id/no"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/delete_text"
+                            android:layout_weight="1"
+                            android:layout_marginStart="@dimen/_20mdp"
+                            android:layout_marginEnd="@dimen/_20mdp"
+                            android:gravity="center"
+                            android:text="NO"
+                            android:textSize="@dimen/_13font_mdp"
+                            android:textColor="@color/white"
+                            android:textStyle="bold"/>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
