@@ -59,7 +59,7 @@ public class DirectionDistance extends AppCompatActivity implements OnMapReadyCa
     private Marker marker;
     private Polyline polyline;
 
-    List<Double> bestMatched = new ArrayList<>(Arrays.asList(-0.01, -0.01, -0.01));
+    List<Double> bestMatched = new ArrayList<>(Arrays.asList(1000.0, 1000.0, 1000.0));
     LatLng origin, dest;
     List<MarkerOptions> markerOptionsList = new ArrayList<>();
     List<HelperDriver> helperDriverList = new ArrayList<>();
@@ -195,7 +195,7 @@ public class DirectionDistance extends AppCompatActivity implements OnMapReadyCa
 
 
                             for (Double i : bestMatched){
-                                if (distancePassengerDriver > i){
+                                if (distancePassengerDriver < i){
                                     i = distancePassengerDriver;
                                     helperDriverList.add(helperDriver);
                                     markerOptions.position(latLng)
